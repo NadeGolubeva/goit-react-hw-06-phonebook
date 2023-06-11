@@ -1,7 +1,13 @@
-import PropTypes from 'prop-types';
 import css from './FindContact.module.css';
 
-export const FindContact = ({filter, onChangeFilter }) => {
+import { setFilter } from 'redux/filterSlice';
+import { useDispatch, useSelector } from 'react-redux';
+import { getFilter } from 'redux/selectors';
+
+export const FindContact = () => {
+    const dispatch = useDispatch();
+    const filter = useSelector(getFilter);
+
     return (
         <>
             <label
@@ -10,7 +16,7 @@ export const FindContact = ({filter, onChangeFilter }) => {
                      Find contact by name
                 </p>
                 <input
-                    onChange={onChangeFilter}
+                    onChange={evt => dispatch(setFilter(evt.target.value.trim()))}
                     type="text"
                     name="filter"
                     value={filter}
@@ -20,9 +26,4 @@ export const FindContact = ({filter, onChangeFilter }) => {
             </label>
         </>
     )
-}
-
-FindContact.prppTypes = {
-    filter: PropTypes.string.isRequired,
-    onChangeFilter: PropTypes.func.isRequired
 }

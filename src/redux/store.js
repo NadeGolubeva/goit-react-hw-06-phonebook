@@ -1,7 +1,7 @@
-import { configureStore, getDefaultMiddleware } from '@reduxjs/toolkit';
+import { configureStore } from '@reduxjs/toolkit';
 import {
-  persistStore,
   persistReducer,
+  persistStore,
   FLUSH,
   REHYDRATE,
   PAUSE,
@@ -20,9 +20,10 @@ const persistConfig = {
 
 export const store = configureStore({
   reducer: {
-    contacts: (persistConfig, contactsReducer),
+    contacts: persistReducer(persistConfig, contactsReducer),
     filter: filterReducer,
   },
+
   middleware: getDefaultMiddleware =>
     getDefaultMiddleware({
       serializableCheck: {
