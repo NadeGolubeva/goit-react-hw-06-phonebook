@@ -5,7 +5,9 @@ import { useDispatch, useSelector } from 'react-redux';
 import { addContact } from 'redux/contactsSlice';
 import { getContacts } from 'redux/selectors';
 import { nanoid } from 'nanoid';
-import { toast } from 'react-toastify';
+
+  import { ToastContainer, toast } from 'react-toastify';
+  import 'react-toastify/dist/ReactToastify.css';
 
 
 export const FormContact = () => {
@@ -23,7 +25,7 @@ export const FormContact = () => {
     const createdContact = contacts.find(({ name }) => name.toLowerCase() === contact.name.toLowerCase()
     );
     if (createdContact) {
-      return toast.warning(`This contact was already created`);
+      return toast.error(`This contact was already created`);
     }
     dispatch(addContact(contact));
     evt.currentTarget.reset();
@@ -65,7 +67,8 @@ export const FormContact = () => {
                id={nanoid()}
               required
             />
-          </label>
+         </label>
+         <ToastContainer />
           <br />
           <button className={css.btnForm} type="submit">Add contact</button>
         </form>
